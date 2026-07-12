@@ -1,0 +1,361 @@
+/* ===== Notes App - Full CSS ===== */
+:root {
+  color-scheme: light;
+
+  --bg: #f8f7f4;
+  --text: #1a1a1a;
+  --header-bg: rgba(255, 255, 255, 0.85);
+  --header-border: #e8e5de;
+  --nav: #5a5a5a;
+  --nav-hover: #111;
+  --card-bg: #ffffff;
+  --card-border: #e8e5de;
+  --input-bg: #fbfaf8;
+  --input-border: #e8e5de;
+  --input-focus: #111;
+  --muted: #a8a29e;
+  --btn-primary-bg: #111;
+  --btn-primary-text: #fff;
+  --btn-secondary-hover: #efede8;
+  --shadow: 0 10px 30px rgba(0,0,0,.06);
+  --shadow-strong: 0 20px 60px rgba(0,0,0,.08);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+/* Header */
+header {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 14px 28px;
+  background: var(--header-bg);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--header-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  cursor: pointer;
+  color: var(--text);
+}
+.brand::after {
+  content: ".";
+  color: #ff5a1f;
+}
+
+header > li {
+  list-style: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--nav);
+  cursor: pointer;
+  padding: 6px 4px;
+  position: relative;
+  transition: color 0.2s ease;
+}
+header > li:hover {
+  color: var(--nav-hover);
+}
+header > li::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--nav-hover);
+  transition: width 0.25s ease;
+}
+header > li:hover::after {
+  width: 100%;
+}
+
+.account {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  list-style: none;
+}
+.account li {
+  list-style: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 9px 18px;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+.login {
+  color: var(--nav);
+  background: transparent;
+}
+.login:hover {
+  background: var(--btn-secondary-hover);
+  color: var(--nav-hover);
+}
+.sign_up {
+  color: var(--btn-primary-text);
+  background: var(--btn-primary-bg);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+.sign_up:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+}
+
+/* Mode button */
+.mode {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.mode::before {
+  content: "◐";
+  font-size: 16px;
+  transition: transform 0.3s ease;
+}
+.mode:hover {
+  transform: rotate(15deg);
+}
+.mode:active {
+  transform: scale(0.95);
+}
+
+/* Main Create Form */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 48px 20px 28px;
+}
+
+.form {
+  width: 100%;
+  max-width: 640px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+.form form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.form input[type="text"] {
+  width: 100%;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--card-border);
+  outline: none;
+  padding: 10px 4px 14px;
+  transition: border-color 0.2s ease;
+}
+.form input[type="text"]::placeholder {
+  color: var(--muted);
+  font-weight: 600;
+}
+.form input[type="text"]:focus {
+  border-bottom-color: var(--input-focus);
+}
+.form textarea {
+  width: 100%;
+  min-height: 150px;
+  resize: vertical;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 14px;
+  outline: none;
+  padding: 16px 18px;
+  transition: all 0.2s ease;
+}
+.form textarea::placeholder {
+  color: var(--muted);
+}
+.form textarea:focus {
+  background: var(--card-bg);
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--input-focus) 8%, transparent);
+}
+.form input[type="submit"] {
+  align-self: flex-end;
+  margin-top: 6px;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 11px 22px;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  transition: all 0.2s ease;
+}
+.form input[type="submit"]:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.16);
+}
+.form input[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/* Saved Notes - small = compact, big = full page width */
+.saved_notes {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 28px 64px;
+
+  column-count: 3;
+  column-gap: 20px;
+}
+
+.notes {
+  display: inline-block;
+  width: 100%;
+  height: auto; /* compact by default */
+  margin: 0 0 20px 0;
+  
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+
+  break-inside: avoid;
+  transition: all 0.2s ease;
+}
+
+/* small notes stay small */
+.note_heading {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.note_content {
+  width: 100%;
+  min-height: 40px; /* small takes less space */
+  height: auto;
+  background: var(--input-bg);
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  resize: none;
+  outline: none;
+  overflow: hidden;
+  field-sizing: content;
+}
+
+/* BIG note takes whole page width */
+.notes.full {
+  column-span: all;
+  width: 100%;
+  display: block;
+}
+
+.notes.full .note_content {
+  min-height: 300px;
+}
+
+@media (max-width: 900px) {
+  .saved_notes { column-count: 2; }
+}
+@media (max-width: 640px) {
+  .saved_notes { column-count: 1; padding: 0 14px 40px; }
+}
+
+/* Dark Mode - Manual toggle via .mode button */
+body.dark {
+  color-scheme: dark;
+
+  --bg: #0e0e0d;
+  --text: #ecebe6;
+  --header-bg: rgba(20,20,18,.85);
+  --header-border: #242420;
+  --nav: #9a9994;
+  --nav-hover: #f5f4f1;
+  --card-bg: #191917;
+  --card-border: #2a2a28;
+  --input-bg: #121210;
+  --input-border: #2a2a28;
+  --input-focus: #f5f4f1;
+  --muted: #6e6d6a;
+  --btn-primary-bg: #f2f0eb;
+  --btn-primary-text: #111;
+  --btn-secondary-hover: #232320;
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+  --shadow-strong: 0 20px 60px rgba(0,0,0,.55);
+}
+/* Responsive */
+@media (max-width: 768px) {
+  .saved_notes {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  header {
+    gap: 14px;
+    padding: 12px 16px;
+  }
+  header > li {
+    display: none;
+  }
+  main {
+    padding: 24px 14px 18px;
+  }
+  .form {
+    padding: 20px;
+    border-radius: 16px;
+  }
+  .form input[type="text"] {
+    font-size: 1.35rem;
+  }
+  .saved_notes {
+    padding: 0 14px 40px;
+    grid-template-columns: 1fr;
+  }
+}

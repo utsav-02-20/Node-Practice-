@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Website Description : to be added later"
+    />
+    <title>Notes App</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="icon" href="favicon.ico" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">Notes</div>
+      <li>Home</li>
+      <li>Support</li>
+      <button class="mode"></button>
+      <!-- <div class="account">
+        <li class="login">Login</li>
+        <li class="sign_up">Sign up</li>
+      </div> -->
+    </header>
+
+    <main>
+        <div class="form">
+            <form action="/create" method="POST">
+                <input type="text" placeholder="Title" name="title">
+                <textarea placeholder="Write about it..." name="details"></textarea>
+                <input type="submit" value="Create Note">
+            </form>
+        </div>
+    </main>
+
+    <!-- <div class="saved_notes">
+        <div class="notes">
+            <a class="note_heading">My first idea</a>
+            <textarea class="note_content" placeholder="Note content...">This is the content</textarea>
+        </div>
+    </div> -->
+
+    <% if (files.length > 0) { %>
+      <div class="saved_notes">
+        <% files.forEach(function(val) { %>
+          <div class="notes">
+            <a class="note_heading"><%= val.displayname %></a>
+            <!-- <textarea class="note_content" readonly><%= val.content %></textarea> -->
+             <!-- <textarea class="note_content" href="./files/<%= val.content %>" readonly>Click to read...</textarea> -->
+              <a class="note_content" href="./files/<%= val.fileName %>">Click to read...</a>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <p class="empty_text">No notes found.</p>
+    <% } %>
+
+    <script src="/javascripts/script.js"></script>
+  </body>
+</html>
