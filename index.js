@@ -65,6 +65,13 @@ app.get("/files/:filename", (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log("Chalne lagi");
+// for local development
+// app.listen(3000, () => {
+//   console.log("Chalne lagi");
+// });
+
+// This is required because Render/Railway assigns the port through the PORT environment variable.
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on ${PORT}`);
 });
