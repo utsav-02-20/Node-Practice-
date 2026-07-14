@@ -63,7 +63,7 @@ app.get("/files/:filename", (req, res) => {
 
       res.render("read.ejs" , {
         displayname: filename.replace(/\.txt$/, "").replace(/_/g, " ") ,
-        //content: filedata
+        content: filedata
       }); 
     });
   });
