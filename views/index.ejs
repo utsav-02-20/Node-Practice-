@@ -14,9 +14,9 @@
   </head>
   <body>
     <header>
-      <div class="brand">Notes</div>
-      <li>Home</li>
-      <li>Support</li>
+      <div class="brand" >Notes</div>
+        <li><a href="/">Home</a></li>
+        <li><a href="/">Support</a></li>
       <button class="mode"></button>
       <!-- <div class="account">
         <li class="login">Login</li>
@@ -46,6 +46,8 @@
         <% files.forEach(function(val) { %>
           <div class="notes">
             <a class="note_heading"><%= val.displayname %></a>
+            <a class="edit" href="/edit/<%= val.fileName %>" title="Edit"></a>
+            <a class="delete" href="/delete/<%= val.fileName %>" title="Delete"></a>
             <!-- <textarea class="note_content" readonly><%= val.content %></textarea> -->
              <!-- <textarea class="note_content" href="./files/<%= val.content %>" readonly>Click to read...</textarea> -->
               <a class="note_content" href="./files/<%= val.fileName %>">Click to read...</a>

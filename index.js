@@ -13,6 +13,9 @@ const fs = require("node:fs");
 app.post("/create", (req, res) => {
   const fileName = req.body.title.trim().split(" ").join("_");
   // const fileName = req.body.title.trim();
+  if (!fileName || fileName.trim() === "") {
+    return res.status(400).send("File name is required");
+  }
   fs.writeFile(`./files/${fileName}.txt`, req.body.details, (err) => {
     if (err) {
       console.error(err);
@@ -57,21 +60,30 @@ app.get("/files/:filename", (req, res) => {
       // res.send(filedata);
 
       // passing value also 
+
       res.render("read.ejs" , {
         displayname: filename.replace(/\.txt$/, "").replace(/_/g, " ") ,
-        content: filedata
+        //content: filedata
       }); 
     });
   });
 });
 
+// deleting the post by a button given 
+// app.get("/delete/:filename" , (req , res) => {
+
+// }) ; 
+
+// editing the file info 
+
+
 // for local development
-// app.listen(3000, () => {
-//   console.log("Chalne lagi");
-// });
+app.listen(3000, () => {
+  console.log("Chalne lagi");
+}); 
 
 // This is required because Render/Railway assigns the port through the PORT environment variable.
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server running on ${PORT}`);
-});
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => {
+//     console.log(`Server running on ${PORT}`);
+// });
