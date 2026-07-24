@@ -47,7 +47,7 @@
           <div class="notes">
             <a class="note_heading"><%= val.displayname %></a>
             <a class="edit" href="/edit/<%= val.fileName %>" title="Edit"></a>
-            <a class="delete" href="/delete/<%= val.fileName %>" title="Delete"></a>
+            <a class="delete" href="/delete/<%= val.fileName %>" onclick="return confirm('Are you sure want to delete this file permanently')" title="Delete"></a>
             <!-- <textarea class="note_content" readonly><%= val.content %></textarea> -->
              <!-- <textarea class="note_content" href="./files/<%= val.content %>" readonly>Click to read...</textarea> -->
               <a class="note_content" href="./files/<%= val.fileName %>">Click to read...</a>

@@ -32,8 +32,8 @@ app.get("/", (req, res) => {
       return res.status(500).send("Error reading files");
     }
     const file = files.map((fileName) => ({
-      fileName: fileName ,
-      displayname: fileName.replace(/\.txt$/, "").replace(/_/g, " ") , 
+      fileName: fileName,
+      displayname: fileName.replace(/\.txt$/, "").replace(/_/g, " "),
       content: fs.readFileSync(`./files/${fileName}`, "utf8"), // utf8 = english
     }));
     // console.log(file);
@@ -41,46 +41,111 @@ app.get("/", (req, res) => {
   });
 });
 
-// added a link to open the file in new window 
+// added a link to open the file in new window
 app.get("/files/:filename", (req, res) => {
   fs.readdir("./files", (err, files) => {
     if (err) {
       return res.status(500).send("Error reading files");
     }
-    // defining filename 
+    // defining filename
     const filename = req.params.filename;
-    fs.readFile(path.join(__dirname , "files" , filename), "utf8", (err, filedata) => {
-      if (err) { 
+    fs.readFile(
+      path.join(__dirname, "files", filename),
+      "utf8",
+      (err, filedata) => {
+        if (err) {
+          console.log(err);
+          return res.status(404).send("File not found");
+        }
+        // prints output on console
+        // console.log(filedata);
+        // prints notes on browser
+        // res.send(filedata);
+
+        // passing value also
+
+        res.render("read.ejs", {
+          displayname: filename.replace(/\.txt$/, "").replace(/_/g, " "),
+          content: filedata,
+        });
+      },
+    );
+  });
+});
+
+// deleting the post by a button given
+app.get("/delete/:filename", (req, res) => {
+  const filePath = path.join(__dirname, "files", req.params.filename);
+  fs.unlink(filePath, (err) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("Error Deleting the file");
+    }
+    res.redirect("/");
+  });
+});
+
+// editing the file info
+app.get("/edit/:filename", (req, res) => {
+  fs.readdir("./files", (err, files) => {
+    if (err) {
+      return res.status(500).send("Error reading files");
+    }
+    // defining filename
+    const filename = req.params.filename;
+    fs.readFile(
+      path.join(__dirname, "files", filename),
+      "utf8",
+      (err, filedata) => {
+        if (err) {
+          console.log(err);
+          return res.status(404).send("File not found");
+        }
+        // prints output on console
+        // console.log(filedata);
+        // prints notes on browser
+        // res.send(filedata);
+
+        // passing value also
+
+        res.render("edit.ejs", {
+          filename,
+          displayname: filename.replace(/\.txt$/, "").replace(/_/g, " "),
+          content: filedata,
+        });
+      },
+    );
+  });
+});
+
+app.post("/edit/:filename", (req, res) => {
+  const oldPath = path.join(__dirname, "files", req.body.previous_file_name);
+  const newPath = path.join(
+    __dirname,
+    "files",
+    req.body.new_file_name + ".txt",
+  );
+  fs.rename(oldPath, newPath, (err) => {
+    if (err) {
+      console.log(err);
+      return res.send("Rename Failed : Try again...");
+    }
+
+    fs.writeFile(newPath, req.body.new_body, (err) => {
+      if (err) {
         console.log(err);
-        return res.status(404).send("File not found");
+        return res.send("Update Failed");
       }
-      // prints output on console 
-      // console.log(filedata);
-      // prints notes on browser 
-      // res.send(filedata);
 
-      // passing value also 
-
-      res.render("read.ejs" , {
-        displayname: filename.replace(/\.txt$/, "").replace(/_/g, " ") ,
-        content: filedata
-      }); 
+      res.redirect("/");
     });
   });
 });
 
-// deleting the post by a button given 
-// app.get("/delete/:filename" , (req , res) => {
-
-// }) ; 
-
-// editing the file info 
-
-
 // for local development
 app.listen(3000, () => {
   console.log("Chalne lagi");
-}); 
+});
 
 // This is required because Render/Railway assigns the port through the PORT environment variable.
 // const PORT = process.env.PORT || 3000;
